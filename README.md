@@ -26,15 +26,15 @@
 
 **go-customerio** requires a [supported release of Go](https://golang.org/doc/devel/release.html#policy).
 ```shell script
-go get -u github.com/mrz8136/go-customerio
+go get -u github.com/mrz1836/go-customerio
 ```
 
 <br/>
 
 ## Documentation
-View the generated [documentation](https://pkg.go.dev/github.com/mrz8136/go-customerio)
+View the generated [documentation](https://pkg.go.dev/github.com/mrz1836/go-customerio)
 
-[![GoDoc](https://godoc.org/github.com/mrz8136/go-customerio?status.svg&style=flat)](https://pkg.go.dev/github.com/mrz8136/go-customerio)
+[![GoDoc](https://godoc.org/github.com/mrz1836/go-customerio?status.svg&style=flat)](https://pkg.go.dev/github.com/mrz1836/go-customerio)
 
 ### Features
 - [Client](client.go) is completely configurable
@@ -350,7 +350,7 @@ Create a `SendEmailRequest` instance, and then use `SendEmail` to send your mess
 You can also send attachments with your message. Use `Attach` to encode attachments.
 
 ```go
-import "github.com/mrz8136/go-customerio"
+import "github.com/mrz1836/go-customerio"
 
 client, err := customerio.NewClient(
   customerio.WithAppKey(os.Getenv("APP_API_KEY")),
@@ -447,7 +447,7 @@ vet                  Run the Go vet application
 <br/>
 
 ## Examples & Tests
-All unit tests and [examples](examples) run via [Github Actions](https://github.com/mrz8136/go-customerio/actions) and
+All unit tests and [examples](examples) run via [Github Actions](https://github.com/mrz1836/go-customerio/actions) and
 uses [Go version(s) 1.13.x, 1.14.x and 1.15.x](https://golang.org/doc/go1.15). View the [configuration file](.github/workflows/run-tests.yml).
 
 Run all tests (including integration tests)
@@ -497,7 +497,7 @@ View the [contributing guidelines](CONTRIBUTING.md) and follow the [code of cond
 ### How can I help?
 All kinds of contributions are welcome :raised_hands:!
 The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:.
-You can also support this project by [becoming a sponsor on GitHub](https://github.com/sponsors/mrz8136) :clap:!
+You can also support this project by [becoming a sponsor on GitHub](https://github.com/sponsors/mrz1836) :clap:!
 <br/>
 
 ## License

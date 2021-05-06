@@ -1,11 +1,11 @@
 # CustomerIO (Unofficial Fork)
 > A golang client for the [Customer.io](https://customer.io) [event API](https://customer.io/docs/api/#section/Overview). [(Visit the Original repo/library)](https://github.com/customerio/go-customerio)
 
-[![Release](https://img.shields.io/github/release-pre/mrz1836/go-customerio.svg?logo=github&style=flat&v=3)](https://github.com/mrz1836/go-customerio/releases)
-[![Build Status](https://img.shields.io/github/workflow/status/mrz1836/go-customerio/run-go-tests?logo=github&v=3)](https://github.com/mrz1836/go-customerio/actions)
-[![Report](https://goreportcard.com/badge/github.com/mrz1836/go-customerio?style=flat&v=3)](https://goreportcard.com/report/github.com/mrz1836/go-customerio)
-[![codecov](https://codecov.io/gh/mrz1836/go-customerio/branch/master/graph/badge.svg?v=3)](https://codecov.io/gh/mrz1836/go-customerio)
-[![Go](https://img.shields.io/github/go-mod/go-version/mrz1836/go-customerio?v=3)](https://golang.org/)
+[![Release](https://img.shields.io/github/release-pre/mrz1836/go-customerio.svg?logo=github&style=flat&v=1)](https://github.com/mrz1836/go-customerio/releases)
+[![Build Status](https://img.shields.io/github/workflow/status/mrz1836/go-customerio/run-go-tests?logo=github&v=1)](https://github.com/mrz1836/go-customerio/actions)
+[![Report](https://goreportcard.com/badge/github.com/mrz1836/go-customerio?style=flat&v=1)](https://goreportcard.com/report/github.com/mrz1836/go-customerio)
+[![codecov](https://codecov.io/gh/mrz1836/go-customerio/branch/master/graph/badge.svg?v=1)](https://codecov.io/gh/mrz1836/go-customerio)
+[![Go](https://img.shields.io/github/go-mod/go-version/mrz1836/go-customerio?v=1)](https://golang.org/)
 
 <br/>
 
@@ -448,7 +448,7 @@ vet                  Run the Go vet application
 
 ## Examples & Tests
 All unit tests and [examples](examples) run via [Github Actions](https://github.com/mrz8136/go-customerio/actions) and
-uses [Go version(s) 1.14.x and 1.15.x](https://golang.org/doc/go1.15). View the [configuration file](.github/workflows/run-tests.yml).
+uses [Go version(s) 1.13.x, 1.14.x and 1.15.x](https://golang.org/doc/go1.15). View the [configuration file](.github/workflows/run-tests.yml).
 
 Run all tests (including integration tests)
 ```shell script
@@ -502,4 +502,4 @@ You can also support this project by [becoming a sponsor on GitHub](https://gith
 
 ## License
 
-![License](https://img.shields.io/github/license/mrz8136/go-customerio.svg?style=flat&v=3)
+![License](https://img.shields.io/github/license/mrz8136/go-customerio.svg?style=flat&v=1)

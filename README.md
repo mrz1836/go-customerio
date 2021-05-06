@@ -502,4 +502,4 @@ You can also support this project by [becoming a sponsor on GitHub](https://gith
 
 ## License
 
-![License](https://img.shields.io/github/license/mrz8136/go-customerio.svg?style=flat&v=1)
+![License](https://img.shields.io/github/license/mrz1836/go-customerio.svg?style=flat&v=1)

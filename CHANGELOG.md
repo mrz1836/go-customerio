@@ -1,5 +1,11 @@
 # Changelog
 
+## May 4, 2021
+### Changed
+- Refactored library for our project's specific use (deviated from Official Library)
+- Supporting resty and custom HTTP clients
+- Supporting missing features from Official Library
+
 ## March 24, 2021
 ### Added
 - Support for EU region

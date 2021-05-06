@@ -36,7 +36,7 @@ func TestClient_NewEvent(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
-		mockNewEvent(http.StatusOK, testCustomerID)
+		mockNewEvent(http.StatusOK, testCustomerID+"456")
 
 		err = client.NewEvent(
 			"", testEventName, time.Now().UTC(),

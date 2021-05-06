@@ -399,6 +399,11 @@ issues:
         - staticcheck
       text: "SA1019:"
 
+    # Exclude some errorlint messages
+    - linters:
+        - errorlint
+      text: "type assertion on error will fail"
+
     # Exclude lll issues for long lines with go:generate
     - linters:
         - lll

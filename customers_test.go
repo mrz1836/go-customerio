@@ -1,6 +1,7 @@
 package customerio
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"testing"
@@ -35,7 +36,7 @@ func TestClient_UpdateCustomer(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
-		mockUpdateCustomer(http.StatusOK, testCustomerID)
+		mockUpdateCustomer(http.StatusOK, testCustomerID+"456")
 
 		err = client.UpdateCustomer("", map[string]interface{}{
 			"created_at": time.Now().Unix(),
@@ -144,7 +145,7 @@ func TestClient_DeleteCustomer(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
-		mockDeleteCustomer(http.StatusOK, testCustomerID)
+		mockDeleteCustomer(http.StatusOK, testCustomerID+"456")
 
 		err = client.DeleteCustomer("")
 		assert.Error(t, err)
@@ -220,7 +221,7 @@ func TestClient_UpdateDevice(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
-		mockUpdateDevice(http.StatusOK, testCustomerID)
+		mockUpdateDevice(http.StatusOK, testCustomerID+"456")
 
 		err = client.UpdateDevice("", &Device{
 			ID:       testDeviceID,
@@ -354,7 +355,7 @@ func TestClient_DeleteDevice(t *testing.T) {
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
-		mockDeleteDevice(http.StatusOK, testCustomerID, testDeviceID)
+		mockDeleteDevice(http.StatusOK, testCustomerID+"456", testDeviceID+"456")
 
 		err = client.DeleteDevice("", testDeviceID)
 		assert.Error(t, err)
@@ -478,11 +479,16 @@ func checkParamError(t *testing.T, err error, param string) {
 		t.Error("expected error")
 		return
 	}
-	pe, ok := err.(ParamError)
-	if !ok {
+	var pErr ParamError
+	if !errors.As(err, &pErr) {
 		t.Error("expected ParamError")
-	}
-	if pe.Param != param {
-		t.Errorf("expected %s got %s", param, pe.Param)
+	} else {
+		pe, ok := err.(ParamError)
+		if !ok {
+			t.Error("expected ParamError")
+		}
+		if pe.Param != param {
+			t.Errorf("expected %s got %s", param, pe.Param)
+		}
 	}
 }

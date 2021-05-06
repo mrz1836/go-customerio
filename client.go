@@ -127,7 +127,7 @@ func (c *Client) GetUserAgent() string {
 // defaultClientOptions will return an Options struct with the default settings
 //
 // Useful for starting with the default and then modifying as needed
-func defaultClientOptions() (opts *clientOptions, err error) {
+func defaultClientOptions() (opts *clientOptions) {
 	// Set the default options
 	opts = &clientOptions{
 		apiURL:         RegionUS.apiURL,
@@ -145,10 +145,8 @@ func defaultClientOptions() (opts *clientOptions, err error) {
 // If no options are given, it will use the DefaultClientOptions()
 // If no client is supplied it will use a default Resty HTTP client
 func NewClient(opts ...ClientOps) (*Client, error) {
-	defaults, err := defaultClientOptions()
-	if err != nil {
-		return nil, err
-	}
+	defaults := defaultClientOptions()
+
 	// Create a new client
 	client := &Client{
 		options: defaults,
@@ -178,7 +176,7 @@ func (c *Client) auth() string {
 
 // request is a standard GET / POST / PUT / DELETE request for all outgoing HTTP requests
 // Omit the data attribute if using a GET request
-func (c *Client) request(httpMethod string, requestURL string, expectedStatusCode int,
+func (c *Client) request(httpMethod string, requestURL string,
 	data interface{}) (response StandardResponse, err error) {
 
 	// Set the user agent
@@ -239,7 +237,8 @@ func (c *Client) request(httpMethod string, requestURL string, expectedStatusCod
 	response.Body = resp.Body()
 
 	// Process if error (different error formats for different API endpoint/urls)
-	if expectedStatusCode != response.StatusCode {
+	// The Customer.io API only responds with 200 if successful
+	if http.StatusOK != response.StatusCode {
 		if strings.Contains(requestURL, "/v1/send/email") {
 			var meta struct {
 				Meta struct {
@@ -258,12 +257,11 @@ func (c *Client) request(httpMethod string, requestURL string, expectedStatusCod
 				}
 			}
 			return
-		} else {
-			err = &APIError{
-				status: response.StatusCode,
-				url:    requestURL,
-				body:   response.Body,
-			}
+		}
+		err = &APIError{
+			status: response.StatusCode,
+			url:    requestURL,
+			body:   response.Body,
 		}
 	}
 	return

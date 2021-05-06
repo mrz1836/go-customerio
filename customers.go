@@ -18,7 +18,6 @@ func (c *Client) UpdateCustomer(customerIDOrEmail string, attributes map[string]
 	_, err := c.request(
 		http.MethodPut,
 		fmt.Sprintf("%s/api/v1/customers/%s", c.options.trackURL, url.PathEscape(customerIDOrEmail)),
-		http.StatusOK,
 		attributes,
 	)
 	return err
@@ -35,7 +34,6 @@ func (c *Client) DeleteCustomer(customerIDOrEmail string) error {
 	_, err := c.request(
 		http.MethodDelete,
 		fmt.Sprintf("%s/api/v1/customers/%s", c.options.trackURL, url.PathEscape(customerIDOrEmail)),
-		http.StatusOK,
 		nil,
 	)
 	return err
@@ -59,7 +57,6 @@ func (c *Client) UpdateDevice(customerIDOrEmail string, device *Device) error {
 	_, err := c.request(
 		http.MethodPut,
 		fmt.Sprintf("%s/api/v1/customers/%s/devices", c.options.trackURL, url.PathEscape(customerIDOrEmail)),
-		http.StatusOK,
 		map[string]interface{}{
 			"device": device,
 		},
@@ -85,7 +82,6 @@ func (c *Client) DeleteDevice(customerIDOrEmail, deviceID string) error {
 			url.PathEscape(customerIDOrEmail),
 			url.PathEscape(deviceID),
 		),
-		http.StatusOK,
 		nil,
 	)
 	return err

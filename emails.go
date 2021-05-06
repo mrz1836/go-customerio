@@ -52,7 +52,7 @@ func (e *EmailRequest) Attach(name string, value io.Reader) error {
 		return err
 	}
 
-	e.Attachments[name] = string(buf.Bytes())
+	e.Attachments[name] = buf.String()
 	return nil
 }
 
@@ -126,7 +126,6 @@ func (c *Client) SendEmail(emailRequest *EmailRequest) (*EmailResponse, error) {
 	response, err := c.request(
 		http.MethodPost,
 		fmt.Sprintf("%s/v1/send/email", c.options.apiURL),
-		http.StatusOK,
 		emailRequest,
 	)
 	if err != nil {

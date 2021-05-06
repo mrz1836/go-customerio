@@ -29,7 +29,6 @@ func (c *Client) FindRegion() (region *RegionInfo, err error) {
 	if resp, err = c.request(
 		http.MethodGet,
 		fmt.Sprintf("%s/api/v1/accounts/region", c.options.trackURL),
-		http.StatusOK,
 		nil,
 	); err != nil {
 		return
@@ -44,7 +43,6 @@ func (c *Client) TestAuth() error {
 	_, err := c.request(
 		http.MethodGet,
 		fmt.Sprintf("%s/auth", c.options.trackURL),
-		http.StatusOK,
 		nil,
 	)
 	return err

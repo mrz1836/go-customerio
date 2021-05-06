@@ -26,7 +26,6 @@ func (c *Client) NewEvent(customerIDOrEmail string, eventName string, timestamp 
 	_, err := c.request(
 		http.MethodPost,
 		fmt.Sprintf("%s/api/v1/customers/%s/events", c.options.trackURL, url.PathEscape(customerIDOrEmail)),
-		http.StatusOK,
 		map[string]interface{}{
 			"data":      data,
 			"name":      eventName,
@@ -51,7 +50,6 @@ func (c *Client) NewAnonymousEvent(eventName string, timestamp time.Time, data m
 	_, err := c.request(
 		http.MethodPost,
 		fmt.Sprintf("%s/api/v1/events", c.options.trackURL),
-		http.StatusOK,
 		map[string]interface{}{
 			"data":      data,
 			"name":      eventName,

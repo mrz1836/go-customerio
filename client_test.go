@@ -150,8 +150,7 @@ func BenchmarkNewClient(b *testing.B) {
 func TestDefaultClientOptions(t *testing.T) {
 	t.Parallel()
 
-	options, err := defaultClientOptions()
-	assert.NoError(t, err)
+	options := defaultClientOptions()
 	assert.NotNil(t, options)
 
 	assert.Equal(t, defaultUserAgent, options.userAgent)
@@ -163,6 +162,6 @@ func TestDefaultClientOptions(t *testing.T) {
 // BenchmarkDefaultClientOptions benchmarks the method defaultClientOptions()
 func BenchmarkDefaultClientOptions(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		_, _ = defaultClientOptions()
+		_ = defaultClientOptions()
 	}
 }

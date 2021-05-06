@@ -19,7 +19,7 @@ func main() {
 	}
 
 	// Update the customer
-	err = client.UpdateCustomerUsingEmail("bob@example.com", map[string]interface{}{
+	err = client.UpdateCustomer("bob@example.com", map[string]interface{}{
 		"created_at": time.Now().Unix(),
 		"email":      "bob@example.com",
 		"first_name": "Bob",

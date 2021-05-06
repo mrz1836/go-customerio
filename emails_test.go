@@ -7,14 +7,21 @@ import (
 
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 )
 
-// TestClient_SendEmail will test the method SendEmail()
-func TestClient_SendEmail(t *testing.T) {
-	// t.Parallel() (Cannot run in parallel - issues with overriding the mock client)
+// EmailTestSuite
+type EmailTestSuite struct {
+	suite.Suite
+	emailNoTemplate   *EmailRequest
+	emailWithTemplate *EmailRequest
+}
 
+// Make sure that VariableThatShouldStartAtFive is set to five
+// before each test
+func (suite *EmailTestSuite) SetupTest() {
 	// Start the email request (no template)
-	emailRequestNoTemplate := &EmailRequest{
+	suite.emailNoTemplate = &EmailRequest{
 		Body:        "This is an example body!",
 		From:        "noreply@example.com",
 		Identifiers: map[string]string{"id": "123"},
@@ -33,7 +40,7 @@ func TestClient_SendEmail(t *testing.T) {
 	}
 
 	// Start the email request (with template)
-	emailRequestWithTemplate := &EmailRequest{
+	suite.emailWithTemplate = &EmailRequest{
 		TransactionalMessageID: "123",
 		Identifiers:            map[string]string{"id": "123"},
 		MessageData: map[string]interface{}{
@@ -46,38 +53,46 @@ func TestClient_SendEmail(t *testing.T) {
 		},
 		To: "bob@example.com",
 	}
+}
 
-	t.Run("successful response (no template)", func(t *testing.T) {
+// TestClient_SendEmail will test the method SendEmail()
+func (suite *EmailTestSuite) TestClient_SendEmail() {
+	// t.Parallel() (Cannot run in parallel - issues with overriding the mock client)
+
+	suite.T().Run("successful response (no template)", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestNoTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.NoError(t, err)
 		assert.NotNil(t, resp)
 	})
 
-	t.Run("successful response (with template)", func(t *testing.T) {
+	suite.T().Run("successful response (with template)", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestWithTemplate)
+		resp, err = client.SendEmail(suite.emailWithTemplate)
 		assert.NoError(t, err)
 		assert.NotNil(t, resp)
 	})
 
-	t.Run("missing email request", func(t *testing.T) {
+	suite.T().Run("missing email request", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
 		var resp *EmailResponse
@@ -86,130 +101,143 @@ func TestClient_SendEmail(t *testing.T) {
 		assert.Nil(t, resp)
 	})
 
-	t.Run("template - missing to", func(t *testing.T) {
+	suite.T().Run("template - missing to", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestWithTemplate.To = ""
+		suite.emailWithTemplate.To = ""
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestWithTemplate)
+		resp, err = client.SendEmail(suite.emailWithTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailTo")
 	})
 
-	t.Run("template - missing identifiers", func(t *testing.T) {
+	suite.T().Run("template - missing identifiers", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestWithTemplate.Identifiers = nil
+		suite.emailWithTemplate.Identifiers = nil
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestWithTemplate)
+		resp, err = client.SendEmail(suite.emailWithTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailIdentifiers")
 	})
 
-	t.Run("no template - missing to", func(t *testing.T) {
+	suite.T().Run("no template - missing to", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestNoTemplate.To = ""
+		suite.emailNoTemplate.To = ""
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestNoTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailTo")
 	})
 
-	t.Run("no template - missing identifiers", func(t *testing.T) {
+	suite.T().Run("no template - missing identifiers", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestNoTemplate.Identifiers = nil
+		suite.emailNoTemplate.Identifiers = nil
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestNoTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailIdentifiers")
 	})
 
-	t.Run("no template - missing body", func(t *testing.T) {
+	suite.T().Run("no template - missing body", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestNoTemplate.Body = ""
+		suite.emailNoTemplate.Body = ""
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestNoTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailBody")
 	})
 
-	t.Run("no template - missing subject", func(t *testing.T) {
+	suite.T().Run("no template - missing subject", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestNoTemplate.Subject = ""
+		suite.emailNoTemplate.Subject = ""
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestNoTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailSubject")
 	})
 
-	t.Run("no template - missing from", func(t *testing.T) {
+	suite.T().Run("no template - missing from", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusOK)
 
-		emailRequestNoTemplate.From = ""
+		suite.emailNoTemplate.From = ""
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestNoTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 		checkParamError(t, err, "emailFrom")
 	})
 
-	t.Run("email error", func(t *testing.T) {
+	suite.T().Run("email error", func(t *testing.T) {
 		client, err := newTestClient()
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
 
+		suite.SetupTest()
 		mockSendEmail(http.StatusUnprocessableEntity)
 
 		var resp *EmailResponse
-		resp, err = client.SendEmail(emailRequestWithTemplate)
+		resp, err = client.SendEmail(suite.emailNoTemplate)
 		assert.Error(t, err)
 		assert.Nil(t, resp)
 	})
+}
+
+// TestEmailTestSuite starts the suite testing
+func TestEmailTestSuite(t *testing.T) {
+	suite.Run(t, new(EmailTestSuite))
 }
 
 // ExampleClient_SendEmail example using SendEmail()

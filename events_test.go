@@ -266,6 +266,128 @@ func BenchmarkClient_NewAnonymousEvent(b *testing.B) {
 	}
 }
 
+// TestClient_NewEventUsingInterface will test the method NewEventUsingInterface()
+func TestClient_NewEventUsingInterface(t *testing.T) {
+	// t.Parallel() (Cannot run in parallel - issues with overriding the mock client)
+
+	t.Run("successful response", func(t *testing.T) {
+		client, err := newTestClient()
+		assert.NoError(t, err)
+		assert.NotNil(t, client)
+
+		mockNewEvent(http.StatusOK, testCustomerID)
+
+		someData := struct {
+			FieldName      string `json:"field_name"`
+			IntField       int    `json:"int_field"`
+			TimestampField int64  `json:"timestamp_field"`
+		}{
+			FieldName:      "some_value",
+			IntField:       123,
+			TimestampField: time.Now().UTC().Unix(),
+		}
+
+		err = client.NewEventUsingInterface(
+			testCustomerID, testEventName, time.Now().UTC(), someData,
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("missing customer id", func(t *testing.T) {
+		client, err := newTestClient()
+		assert.NoError(t, err)
+		assert.NotNil(t, client)
+
+		mockNewEvent(http.StatusOK, testCustomerID+"456")
+
+		someData := struct {
+			FieldName      string `json:"field_name"`
+			IntField       int    `json:"int_field"`
+			TimestampField int64  `json:"timestamp_field"`
+		}{
+			FieldName:      "some_value",
+			IntField:       123,
+			TimestampField: time.Now().UTC().Unix(),
+		}
+
+		err = client.NewEventUsingInterface(
+			"", testEventName, time.Now().UTC(), someData,
+		)
+		assert.Error(t, err)
+		checkParamError(t, err, "customerIDOrEmail")
+	})
+
+	t.Run("missing event name", func(t *testing.T) {
+		client, err := newTestClient()
+		assert.NoError(t, err)
+		assert.NotNil(t, client)
+
+		mockNewEvent(http.StatusOK, testCustomerID)
+
+		someData := struct {
+			FieldName      string `json:"field_name"`
+			IntField       int    `json:"int_field"`
+			TimestampField int64  `json:"timestamp_field"`
+		}{
+			FieldName:      "some_value",
+			IntField:       123,
+			TimestampField: time.Now().UTC().Unix(),
+		}
+
+		err = client.NewEventUsingInterface(
+			testCustomerID, "", time.Now().UTC(), someData,
+		)
+		assert.Error(t, err)
+		checkParamError(t, err, "eventName")
+	})
+
+	t.Run("no time set", func(t *testing.T) {
+		client, err := newTestClient()
+		assert.NoError(t, err)
+		assert.NotNil(t, client)
+
+		mockNewEvent(http.StatusOK, testCustomerID)
+
+		someData := struct {
+			FieldName      string `json:"field_name"`
+			IntField       int    `json:"int_field"`
+			TimestampField int64  `json:"timestamp_field"`
+		}{
+			FieldName:      "some_value",
+			IntField:       123,
+			TimestampField: time.Now().UTC().Unix(),
+		}
+
+		err = client.NewEventUsingInterface(
+			testCustomerID, testEventName, time.Time{}, someData,
+		)
+		assert.NoError(t, err)
+	})
+
+	t.Run("customerIo error", func(t *testing.T) {
+		client, err := newTestClient()
+		assert.NoError(t, err)
+		assert.NotNil(t, client)
+
+		mockNewEvent(http.StatusUnprocessableEntity, testCustomerID)
+
+		someData := struct {
+			FieldName      string `json:"field_name"`
+			IntField       int    `json:"int_field"`
+			TimestampField int64  `json:"timestamp_field"`
+		}{
+			FieldName:      "some_value",
+			IntField:       123,
+			TimestampField: time.Now().UTC().Unix(),
+		}
+
+		err = client.NewEventUsingInterface(
+			testCustomerID, testEventName, time.Now().UTC(), someData,
+		)
+		assert.Error(t, err)
+	})
+}
+
 // mockNewEvent is used for mocking the response
 func mockNewEvent(statusCode int, customerID string) {
 	httpmock.Reset()

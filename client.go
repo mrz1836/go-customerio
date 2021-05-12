@@ -185,8 +185,7 @@ func (c *Client) request(httpMethod string, requestURL string,
 	// Set the body if (PUT || POST)
 	if httpMethod != http.MethodGet && httpMethod != http.MethodDelete {
 		var j []byte
-		j, err = json.Marshal(data)
-		if err != nil {
+		if j, err = json.Marshal(data); err != nil {
 			return
 		}
 		req = req.SetBody(string(j))

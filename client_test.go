@@ -43,11 +43,12 @@ func TestNewClient(t *testing.T) {
 		client, err := NewClient(WithTrackingKey(testSiteID, testTrackingAPIKey))
 		assert.NoError(t, err)
 		assert.NotNil(t, client)
-		assert.Equal(t, defaultUserAgent, client.options.userAgent)
 		assert.Equal(t, defaultHTTPTimeout, client.options.httpTimeout)
 		assert.Equal(t, defaultRetryCount, client.options.retryCount)
+		assert.Equal(t, defaultUserAgent, client.options.userAgent)
 		assert.Equal(t, false, client.options.requestTracing)
 		assert.Equal(t, RegionUS.apiURL, client.options.apiURL)
+		assert.Equal(t, RegionUS.betaURL, client.options.betaURL)
 		assert.Equal(t, RegionUS.trackURL, client.options.trackURL)
 	})
 
@@ -78,6 +79,7 @@ func TestNewClient(t *testing.T) {
 		client, err := NewClient(WithTrackingKey(testSiteID, testTrackingAPIKey), WithUserAgent("custom user agent"))
 		assert.NotNil(t, client)
 		assert.NoError(t, err)
+		assert.Equal(t, "custom user agent", client.GetUserAgent())
 	})
 
 	t.Run("custom region (EU)", func(t *testing.T) {
@@ -85,6 +87,7 @@ func TestNewClient(t *testing.T) {
 		assert.NotNil(t, client)
 		assert.NoError(t, err)
 		assert.Equal(t, client.options.apiURL, "https://api-eu.customer.io")
+		assert.Equal(t, client.options.betaURL, "https://beta-api.customer.io")
 		assert.Equal(t, client.options.trackURL, "https://track-eu.customer.io")
 	})
 
@@ -93,6 +96,7 @@ func TestNewClient(t *testing.T) {
 		assert.NotNil(t, client)
 		assert.NoError(t, err)
 		assert.Equal(t, client.options.apiURL, "https://api.customer.io")
+		assert.Equal(t, client.options.betaURL, "https://beta-api.customer.io")
 		assert.Equal(t, client.options.trackURL, "https://track.customer.io")
 	})
 
@@ -136,7 +140,7 @@ func ExampleNewClient() {
 		return
 	}
 	fmt.Printf("loaded client: %s", client.options.userAgent)
-	// Output:loaded client: go-customerio: v1.3.2
+	// Output:loaded client: go-customerio: v1.3.3
 }
 
 // BenchmarkNewClient benchmarks the method NewClient()

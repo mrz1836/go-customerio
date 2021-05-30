@@ -113,11 +113,11 @@ View the generated [documentation](https://pkg.go.dev/github.com/mrz1836/go-cust
   - [ ] **Beta API** (Activities)
     - [ ] List activities
   - [ ] **Beta API** (Collections)
-    - [ ] Create a collection
+    - [x] Create a collection
     - [ ] List your collections
     - [ ] Lookup a collection
     - [ ] Delete a collection
-    - [ ] Update a collection
+    - [x] Update a collection
     - [ ] Lookup collection contents
     - [ ] Update the contents of a collection
   - [ ] **Beta API** (Sender Identities)

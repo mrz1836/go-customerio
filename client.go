@@ -24,6 +24,7 @@ type Client struct {
 type clientOptions struct {
 	apiURL         string        // Regional API endpoint (URL)
 	appAPIKey      string        // App or Beta API key
+	betaURL        string        // Regional API endpoint (Beta URL)
 	httpTimeout    time.Duration // Default timeout in seconds for GET requests
 	requestTracing bool          // If enabled, it will trace the request timing
 	retryCount     int           // Default retry count for HTTP requests
@@ -36,6 +37,7 @@ type clientOptions struct {
 // region is used for changing the location of the API endpoints
 type region struct {
 	apiURL   string
+	betaURL  string
 	trackURL string
 }
 
@@ -43,10 +45,12 @@ type region struct {
 var (
 	RegionUS = region{
 		apiURL:   "https://api.customer.io",
+		betaURL:  "https://beta-api.customer.io",
 		trackURL: "https://track.customer.io",
 	}
 	RegionEU = region{
 		apiURL:   "https://api-eu.customer.io",
+		betaURL:  "https://beta-api.customer.io",
 		trackURL: "https://track-eu.customer.io",
 	}
 )
@@ -59,6 +63,7 @@ type ClientOps func(c *clientOptions)
 func WithRegion(r region) ClientOps {
 	return func(c *clientOptions) {
 		c.apiURL = r.apiURL
+		c.betaURL = r.betaURL
 		c.trackURL = r.trackURL
 	}
 }
@@ -131,6 +136,7 @@ func defaultClientOptions() (opts *clientOptions) {
 	// Set the default options
 	opts = &clientOptions{
 		apiURL:         RegionUS.apiURL,
+		betaURL:        RegionUS.betaURL,
 		httpTimeout:    defaultHTTPTimeout,
 		requestTracing: false,
 		retryCount:     defaultRetryCount,

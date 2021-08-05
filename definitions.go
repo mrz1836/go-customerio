@@ -11,7 +11,7 @@ const (
 	defaultHTTPTimeout = 20 * time.Second            // Default timeout for all GET requests in seconds
 	defaultRetryCount  = 2                           // Default retry count for HTTP requests
 	defaultUserAgent   = "go-customerio: " + version // Default user agent
-	version            = "v1.3.3"                    // CustomerIO version
+	version            = "v1.3.4"                    // CustomerIO version
 )
 
 // DevicePlatform is the platform for the customer device

@@ -140,7 +140,7 @@ func ExampleNewClient() {
 		return
 	}
 	fmt.Printf("loaded client: %s", client.options.userAgent)
-	// Output:loaded client: go-customerio: v1.3.4
+	// Output:loaded client: go-customerio: v1.3.5
 }
 
 // BenchmarkNewClient benchmarks the method NewClient()

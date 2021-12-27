@@ -4,6 +4,6 @@ go 1.15
 
 require (
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/jarcoal/httpmock v1.0.8
+	github.com/jarcoal/httpmock v1.1.0
 	github.com/stretchr/testify v1.7.0
 )

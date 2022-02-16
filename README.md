@@ -485,8 +485,8 @@ This is an "unofficial fork" of the [official library](https://github.com/custom
 created to enhance or improve missing functionality.
 
 | [<img src="https://github.com/mrz1836.png" height="50" alt="MrZ" />](https://github.com/mrz1836) |
-|:---:|
-| [MrZ](https://github.com/mrz1836) |
+|:------------------------------------------------------------------------------------------------:|
+|                                [MrZ](https://github.com/mrz1836)                                 |
 
 <br/>
 
@@ -502,4 +502,4 @@ You can also support this project by [becoming a sponsor on GitHub](https://gith
 
 ## License
 
-![License](https://img.shields.io/github/license/mrz1836/go-customerio.svg?style=flat&v=1)
+[![License](https://img.shields.io/github/license/mrz1836/go-customerio.svg?style=flat&v=1)](LICENSE)

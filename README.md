@@ -2,7 +2,7 @@
 > A golang client for the [Customer.io](https://customer.io) [event API](https://customer.io/docs/api/#section/Overview). [(Visit the Original repo/library)](https://github.com/customerio/go-customerio)
 
 [![Release](https://img.shields.io/github/release-pre/mrz1836/go-customerio.svg?logo=github&style=flat&v=1)](https://github.com/mrz1836/go-customerio/releases)
-[![Build Status](https://img.shields.io/github/workflow/status/mrz1836/go-customerio/run-go-tests?logo=github&v=1)](https://github.com/mrz1836/go-customerio/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/mrz1836/go-customerio/run-tests.yml?branch=master&logo=github&v=2)](https://github.com/mrz1836/go-customerio/actions)
 [![Report](https://goreportcard.com/badge/github.com/mrz1836/go-customerio?style=flat&v=1)](https://goreportcard.com/report/github.com/mrz1836/go-customerio)
 [![codecov](https://codecov.io/gh/mrz1836/go-customerio/branch/master/graph/badge.svg?v=1)](https://codecov.io/gh/mrz1836/go-customerio)
 [![Go](https://img.shields.io/github/go-mod/go-version/mrz1836/go-customerio?v=1)](https://golang.org/)

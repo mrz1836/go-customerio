@@ -3,7 +3,7 @@ module github.com/mrz1836/go-customerio
 go 1.17
 
 require (
-	github.com/go-resty/resty/v2 v2.8.0
+	github.com/go-resty/resty/v2 v2.9.1
 	github.com/jarcoal/httpmock v1.3.1
 	github.com/stretchr/testify v1.8.4
 )

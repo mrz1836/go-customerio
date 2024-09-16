@@ -103,7 +103,7 @@ func ExampleClient_UpdateCustomer() {
 		"plan":       "basic",
 	})
 	if err != nil {
-		fmt.Printf("error updating customer: " + err.Error())
+		fmt.Printf("error updating customer: %s", err.Error())
 		return
 	}
 	fmt.Printf("customer updated: %s", testCustomerID)
@@ -181,7 +181,7 @@ func ExampleClient_DeleteCustomer() {
 	// Delete customer
 	err = client.DeleteCustomer(testCustomerID)
 	if err != nil {
-		fmt.Printf("error deleting customer: " + err.Error())
+		fmt.Printf("error deleting customer: %s", err.Error())
 		return
 	}
 	fmt.Printf("customer deleted: %s", testCustomerID)
@@ -313,7 +313,7 @@ func ExampleClient_UpdateDevice() {
 		Platform: PlatformIOs,
 	})
 	if err != nil {
-		fmt.Printf("error updating device: " + err.Error())
+		fmt.Printf("error updating device: %s", err.Error())
 		return
 	}
 	fmt.Printf("device updated: %s", testDeviceID)
@@ -403,7 +403,7 @@ func ExampleClient_DeleteDevice() {
 	// Delete device
 	err = client.DeleteDevice(testCustomerID, testDeviceID)
 	if err != nil {
-		fmt.Printf("error deleting device: " + err.Error())
+		fmt.Printf("error deleting device: %s", err.Error())
 		return
 	}
 	fmt.Printf("device deleted: %s", testDeviceID)
@@ -483,7 +483,8 @@ func checkParamError(t *testing.T, err error, param string) {
 	if !errors.As(err, &pErr) {
 		t.Error("expected ParamError")
 	} else {
-		pe, ok := err.(ParamError)
+		var pe ParamError
+		ok := errors.As(err, &pe)
 		if !ok {
 			t.Error("expected ParamError")
 		}

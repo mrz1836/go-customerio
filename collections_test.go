@@ -147,7 +147,7 @@ func ExampleClient_UpdateCollection() {
 			},
 		})
 	if err != nil {
-		fmt.Printf("error creating collection: " + err.Error())
+		fmt.Printf("error creating collection: %s", err.Error())
 		return
 	}
 	fmt.Printf("collection created: %s", testCollectionName)
@@ -262,7 +262,7 @@ func ExampleClient_UpdateCollectionViaURL() {
 		testCollectionURL,
 	)
 	if err != nil {
-		fmt.Printf("error creating collection: " + err.Error())
+		fmt.Printf("error creating collection: %s", err.Error())
 		return
 	}
 	fmt.Printf("collection created: %s", testCollectionName)

@@ -125,7 +125,7 @@ func ExampleClient_NewEvent() {
 			"timestamp_field": time.Now().UTC().Unix(),
 		})
 	if err != nil {
-		fmt.Printf("error creating event: " + err.Error())
+		fmt.Printf("error creating event: %s", err.Error())
 		return
 	}
 	fmt.Printf("event created: %s", testEventName)
@@ -244,7 +244,7 @@ func ExampleClient_NewAnonymousEvent() {
 			"timestamp_field": time.Now().UTC().Unix(),
 		})
 	if err != nil {
-		fmt.Printf("error creating event: " + err.Error())
+		fmt.Printf("error creating event: %s", err.Error())
 		return
 	}
 	fmt.Printf("event created: %s", testEventName)

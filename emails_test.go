@@ -272,7 +272,7 @@ func ExampleClient_SendEmail() {
 	// Send email
 	_, err = client.SendEmail(emailRequestWithTemplate)
 	if err != nil {
-		fmt.Printf("error sending email: " + err.Error())
+		fmt.Printf("error sending email: %s", err.Error())
 		return
 	}
 	fmt.Printf("email sent to: %s", emailRequestWithTemplate.To)
